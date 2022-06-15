@@ -1,0 +1,65 @@
+--Building a image--
+docker build .
+
+--Giving an image a name--
+docker build -t goals .
+
+--Giving an image a name and a tag--
+docker build -t goals:latest .
+
+--Giving a container a name--
+docker run --name goalsapp goals
+
+--Copying a file from local machine to a running container--
+docker cp dummy/test.txt goals:/test
+
+--Copying a file from a running container to local machine--
+docker cp goals:/test ./dummy
+
+--Stop a container--
+docker stop goalsapp
+
+--Show running containers--
+docker ps
+
+--Show all containers, stopped and running--
+docker ps -a
+
+--Start a stopped (already existing) container--
+docker start goalsapp
+
+--Start a stopped container in attached mode--
+docker start -a goalsapp
+
+--Create a container in detached mode--
+docker run -d goalsapp
+
+--See the logs of a container--
+docker logs goalsapp
+
+--Remove a container--
+docker rm goalsapp
+
+--Remove all containers--
+docker container prune
+
+--Remove a container after it stops--
+docker run --rm goalsapp
+
+--Show all images--
+docker images -a
+
+--Remove an image--
+docker rmi goals
+
+--Remove all images--
+docker image prune
+
+--Inspect an image--
+docker image inspect goals
+
+--Pulling an image from Docker Hub--
+docker pull thatsehannah/node-hello-world
+
+--Pushing an image to Docker Hub--
+docker push thatsehannah/node-hello-world

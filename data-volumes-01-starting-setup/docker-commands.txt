@@ -1,0 +1,25 @@
+--Setting env variables via docker run command--
+docker run -e PORT=8000 -d --rm --name feedback-app -p 3000:8000 -v /app/node_modules -v $(pwd):/app:ro -v /app/temp  -v feedback:/app/feedback feedback-node:web-app
+
+--Creating an anonymous volume--
+docker run -v /app/node_modules feedback-node:web-app
+
+--Creating a named volume--
+docker run -v feedback:/app/feedback feedback-node:web-app
+
+--Creating a bind mount--
+docker run -e PORT=8000 -v $(pwd):/app feedback-node:web-app
+
+--Creating a read-only bind mount--
+docker run -e PORT=8000 -v $(pwd):/app:ro feedback-node:web-app
+
+--Removing a volume--
+docker volume rm feedback
+
+--Removing all volumes--
+docker volume prune
+
+--Listing all volumes--
+docker volume ls
+
+
