@@ -1,9 +1,12 @@
 * To create an image, create a file called `Dockerfile` (without an extension)
     * Dockerfile describes to Docker how our container should be configured by adding instructions (more on this later)
 
-- To build an image from the Dockerfile, in your terminal, navigate to the directory where the Dockerfile lives, and run `docker build .`
+* To build an image from the Dockerfile, in your terminal, navigate to the directory where the Dockerfile lives, and run `docker build .`
 
-- We can run a container based on the image build with the Dockerfile by executing the `docker run [image]` command, where [image] is the ID of the image (could also use an alias maybe?)
+* Hello
+    * Double test
+
+* We can run a container based on the image build with the Dockerfile by executing the `docker run [image]` command, where [image] is the ID of the image (could also use an alias maybe?)
     - If our container has a port we want to communicate to, we need to publish that port on the container. Add the `-p` flag on the docker run command and provide the following: `[host-port]:[container-port]`
       - For example: `docker run -p 3000:80 [image]`
         - Assuming we exposed port 80 in our Dockerfile
