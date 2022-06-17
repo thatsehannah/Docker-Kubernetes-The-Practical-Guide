@@ -43,10 +43,10 @@
 
 - Dockerfile contains the instructions that we want to execute when we build our own image.
 
-- Start Dockerfile with the `FROM instruction`
+- Start Dockerfile with the `FROM` instruction
   - Allows you to build your image based on anther base image
 
-- `COPY instruction`
+- `COPY` instruction
   - Tells Docker which files that live on our local machine should go into the image
   - You need to specify 2 paths:
     - First path is the path outside of the image where the files live that should be copied into the image
@@ -62,21 +62,21 @@
 
 - By default, all commands will be executed in the working directory of your image/container, which, by default, is the root folder folder in the image/container file system.
 
-- To specify what directory to execute certain commands in, set the `WORKDIR instruction` to that directory
+- To specify what directory to execute certain commands in, set the `WORKDIR` instruction to that directory
 
   - Any subsequent commands that follow this instruciton will be executed from inside the directory you specified.
   - Example
-    - WORKDIR /app
-    - COPY . .
-    - RUN npm install
+    - `WORKDIR /app`  
+      `COPY . .`  
+      `RUN npm install`  
       - Here, we're setting the working directory to `/app`, which is where the npm install command will be ran at.
   - If the directory specified doesn't exist, it will automatically be created.
 
-- `RUN instruction`
+- `RUN` instruction
   - Tells Docker to execute commands inside the image
   - Normal to install dependencies here, such as npm install, for when the image is created.
 
-- `CMD instruction`
+- `CMD` instruction
   - Executes a command not when an image is created, but when a container is started based on the image
   - Takes an array of strings that is composed of each piece of the command split into separate strings
   - Example: if we want to start a node server when a container is created
@@ -91,7 +91,7 @@
   - Specify the path where Docker is able to find the Dockerfile
     - If you specify a dot, you're telling Docker that the Dockerfile is in the same directory that we're running the command in.
 
-- `EXPOSE instruction`
+- `EXPOSE` instruction
   - Lets Docker know that when a container is started, we want to expose a certain port to our local system
   - Doesn't really open up the port to our local machine. It's mainly for documentation purposes; good practice to add to Dockerfile to document which ports will be exposed by your container, but more needs to be done.
 
@@ -138,11 +138,11 @@
   - Container runs in the background, unlike when you run docker run
     - In other words, it's not blocking us in the terminal (node server specific example)
 
-- `Detached mode`
+- Detached mode
   - Container runs in the background
   - Default for docker start command
 
-- `Attached mode`
+- Attached mode
   - Container runs in the foreground
   - Default for docker run command
   - Means we're listening to the output of the container
@@ -196,7 +196,7 @@
 - To automatically remove a container after it stops, run the docker run command with the `--rm` flag
   - Example
     - `docker run -p 8000:80 --rm [image]`
-    - Once you stop this container and run the docker ps -a command, the container won't appear
+    - Once you stop this container and run the `docker ps -a` command, the container won't appear
   - Useful for web apps where frequent changes are made and one container may not ever be used again
 
 - `docker image inspect [image]` command
@@ -234,11 +234,11 @@
   - Tag is optional
   - Both name and tag are separated by a colon
   - Example: in the Dockerfile
-    - FROM node:12
+    - `FROM node:12`
       - Here, you're specifying that you want to use the specific 12 tagged version of the node image
       - node is the specialized group of images, and 12 is the tag (more than likely the version) of the specialized image
   - To give your own image a name (and an optional tag), provide the `-t` option followed by the name of your choice when running docker build command
-    - Make sure to specify the "-t" flag before giving the path of the Dockerfile
+    - Make sure to specify the `-t` flag before giving the path of the Dockerfile
     - Example
       - `docker build -t goals:latest .`
 
@@ -263,13 +263,13 @@
 - If you haven't created the image you want to push already, you can just run `docker build -t [tag-name-from-docker-hub]`
 
 - The tag name consists of the name you gave the repository (a.k.a image) prefixed with your Docker ID, separated by a slash.
-  - Example: thatsehannah/node-hello-world
+  - Example: `thatsehannah/node-hello-world`
     - thatsheannah is my Docker ID, node-hello-world is the repository
 
 - If we've already built the image we want to push to Docker Hub, we can rename it and retag it.
   - Use the `docker tag` command, which takes two arguments. First arg is the old name. Second arg is the new name.
   - Example
-    - docker tag node-app thatsheannah/node-hello-world
+    - `docker tag node-app thatsheannah/node-hello-world`
   - When you rename an image, you don't replace of the old image, you're basically cloing it with a different name.
 
 - Before you push an image to Docker Hub, you must first login from the command line using the `docker login` command, in which you just put in your username & password
