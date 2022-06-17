@@ -4,7 +4,7 @@
 - To build an image from the Dockerfile, in your terminal, navigate to the directory where the Dockerfile lives, and run `docker build .`
 
 - We can run a container based on the image build with the Dockerfile by executing the `docker run [image]` command, where [image] is the ID of the image (could also use an alias maybe?)
-  - If our container has a port we want to communicate to, we need to publish that port on the container. Add the **-p** flag on the docker run command and provide the following: `[host-port]:[container-port]`
+  - If our container has a port we want to communicate to, we need to publish that port on the container. Add the `-p` flag on the docker run command and provide the following: `[host-port]:[container-port]`
     - For example: `docker run -p 3000:80 [image]`
       - Assuming we exposed port 80 in our Dockerfile
       - If we visit localhost:3000 on our machine, we will be able to access the application from our docker container
@@ -120,15 +120,15 @@
 
 - For optimization purposes, if you have a file like package.json that will be copied over if you incldue the "COPY . /app" instruction, it would be best to extract that file to its own COPY instruction followed by RUN npm install instruction. You will then have the "COPY . /app" instruction follow after that.
   - Example
-    - COPY package.json /app
-      RUN npm install
-      COPY . /app
-      CMD ["node", "server.js"]
+    - `COPY package.json /app`  
+      `RUN npm install`  
+      `COPY . /app`  
+      `CMD ["node", "server.js"]`  
   - This will prevent Docker from running npm install when it doesn't have to. Like when we make a change to the soruce code. So effectively, npm install will only run when the image is first built or if there are any changes to the package.json file itself.
 
 - `docker ps` command
   - shows all running containers
-  - Adding the **"-a"** flag shows all containers you've ran in the past, including stopped containers
+  - Adding the `"-a"` flag shows all containers you've ran in the past, including stopped containers
 
 - If nothing changed about our image and we've stopped a container based on that image, there's no need to create a brand new container. We can restart the existing container.
 
@@ -138,16 +138,16 @@
   - Container runs in the background, unlike when you run docker run
     - In other words, it's not blocking us in the terminal (node server specific example)
 
-- **Detached mode**
+- `Detached mode`
   - Container runs in the background
   - Default for docker start command
 
-- **Attached mode**
+- `Attached mode`
   - Container runs in the foreground
   - Default for docker run command
   - Means we're listening to the output of the container
 
-- To run a container in detached mode, add the **"-d"** flag to the docker run command
+- To run a container in detached mode, add the `"-d"` flag to the docker run command
   - Example
     - `docker run -d -p 8000:80 [image]`
 
@@ -155,7 +155,7 @@
   - Or you can simply run `docker attach [container]`
 
 - If you're in detached mode but want to view the logs of a container, you can run `docker logs [container]`
-  - You can add the **"-f"** flag to enter follow mode, which is basically an alternate way to attach to the container and listen to the output of the container.
+  - You can add the `"-f"` flag to enter follow mode, which is basically an alternate way to attach to the container and listen to the output of the container.
   - Example
     - `docker logs -f [container]`
 
@@ -166,8 +166,8 @@
 - By default, docker run attaches us to the container so we can listen to output printed by the container, but we're not attached to it to where we can enter anything into the application running in the container.
 
 - "-i" and "-t" flags on docker run
-  - **"-i"** -> allows you to launch the container in interactive mode (even when not in attached mode). Means we'll able to input something in the container.
-  - **"-t"** -> creates a terminal to input things in
+  - `"-i"` -> allows you to launch the container in interactive mode (even when not in attached mode). Means we'll able to input something in the container.
+  - `"-t"` -> creates a terminal to input things in
   - Combining these two flags allows the container to listen for our input and we'll get a terminal exposed by the container.
   - Example
     - `docker run -it [image]`
@@ -193,7 +193,7 @@
       - Example
         - `docker rmi [image] [image] [image]`
 
-- To automatically remove a container after it stops, run the docker run command with the **"--rm"** flag
+- To automatically remove a container after it stops, run the docker run command with the `"--rm"` flag
   - Example
     - `docker run -p 8000:80 --rm [image]`
     - Once you stop this container and run the docker ps -a command, the container won't appear
@@ -222,7 +222,7 @@
   - Useful for adding soemthing to the container without restarting the container and rebuilding the image, such as configuration files for a web server
   - Useful for, if your container generates log files, copying these log files from the container to the local machine
 
-- To give your container its own name, run the docker run command with the **"--name"** option followed by the name of your choice.
+- To give your container its own name, run the docker run command with the `"--name"` option followed by the name of your choice.
   - Example
     - `docker run --name goalsapp [image]`
   - Makes it easier to stop the container without having to run docker ps to find the CONTAINER ID or NAMES
@@ -237,7 +237,7 @@
     - FROM node:12
       - Here, you're specifying that you want to use the specific 12 tagged version of the node image
       - node is the specialized group of images, and 12 is the tag (more than likely the version) of the specialized image
-  - To give your own image a name (and an optional tag), provide the **"-t"** option followed by the name of your choice when running docker build command
+  - To give your own image a name (and an optional tag), provide the `"-t"` option followed by the name of your choice when running docker build command
     - Make sure to specify the "-t" flag before giving the path of the Dockerfile
     - Example
       - `docker build -t goals:latest .`
