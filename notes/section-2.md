@@ -128,7 +128,7 @@
 
 - `docker ps` command
   - shows all running containers
-  - Adding the `"-a"` flag shows all containers you've ran in the past, including stopped containers
+  - Adding the `-a` flag shows all containers you've ran in the past, including stopped containers
 
 - If nothing changed about our image and we've stopped a container based on that image, there's no need to create a brand new container. We can restart the existing container.
 
@@ -147,7 +147,7 @@
   - Default for docker run command
   - Means we're listening to the output of the container
 
-- To run a container in detached mode, add the `"-d"` flag to the docker run command
+- To run a container in detached mode, add the `-d` flag to the docker run command
   - Example
     - `docker run -d -p 8000:80 [image]`
 
@@ -155,7 +155,7 @@
   - Or you can simply run `docker attach [container]`
 
 - If you're in detached mode but want to view the logs of a container, you can run `docker logs [container]`
-  - You can add the `"-f"` flag to enter follow mode, which is basically an alternate way to attach to the container and listen to the output of the container.
+  - You can add the `-f` flag to enter follow mode, which is basically an alternate way to attach to the container and listen to the output of the container.
   - Example
     - `docker logs -f [container]`
 
@@ -166,8 +166,8 @@
 - By default, docker run attaches us to the container so we can listen to output printed by the container, but we're not attached to it to where we can enter anything into the application running in the container.
 
 - "-i" and "-t" flags on docker run
-  - `"-i"` -> allows you to launch the container in interactive mode (even when not in attached mode). Means we'll able to input something in the container.
-  - `"-t"` -> creates a terminal to input things in
+  - `-i` -> allows you to launch the container in interactive mode (even when not in attached mode). Means we'll able to input something in the container.
+  - `-t` -> creates a terminal to input things in
   - Combining these two flags allows the container to listen for our input and we'll get a terminal exposed by the container.
   - Example
     - `docker run -it [image]`
@@ -193,7 +193,7 @@
       - Example
         - `docker rmi [image] [image] [image]`
 
-- To automatically remove a container after it stops, run the docker run command with the `"--rm"` flag
+- To automatically remove a container after it stops, run the docker run command with the `--rm` flag
   - Example
     - `docker run -p 8000:80 --rm [image]`
     - Once you stop this container and run the docker ps -a command, the container won't appear
@@ -222,7 +222,7 @@
   - Useful for adding soemthing to the container without restarting the container and rebuilding the image, such as configuration files for a web server
   - Useful for, if your container generates log files, copying these log files from the container to the local machine
 
-- To give your container its own name, run the docker run command with the `"--name"` option followed by the name of your choice.
+- To give your container its own name, run the docker run command with the `--name` option followed by the name of your choice.
   - Example
     - `docker run --name goalsapp [image]`
   - Makes it easier to stop the container without having to run docker ps to find the CONTAINER ID or NAMES
@@ -237,7 +237,7 @@
     - FROM node:12
       - Here, you're specifying that you want to use the specific 12 tagged version of the node image
       - node is the specialized group of images, and 12 is the tag (more than likely the version) of the specialized image
-  - To give your own image a name (and an optional tag), provide the `"-t"` option followed by the name of your choice when running docker build command
+  - To give your own image a name (and an optional tag), provide the `-t` option followed by the name of your choice when running docker build command
     - Make sure to specify the "-t" flag before giving the path of the Dockerfile
     - Example
       - `docker build -t goals:latest .`
