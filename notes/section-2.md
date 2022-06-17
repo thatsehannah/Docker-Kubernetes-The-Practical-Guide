@@ -3,15 +3,15 @@
 
 - To build an image from the Dockerfile, in your terminal, navigate to the directory where the Dockerfile lives, and run **docker build .**
 
-- We can run a container based on the image build with the Dockerfile by executing the **docker run <image>** command, where <image> is the ID of the image (could also use an alias maybe?)
-  - If our container has a port we want to communicate to, we need to publish that port on the container. Add the **-p** flag on the docker run command and provide the following: **<host-port>:<container-port>**
-    - For example: **docker run -p 3000:80 <image>**
+- We can run a container based on the image build with the Dockerfile by executing the **docker run [image]** command, where [image] is the ID of the image (could also use an alias maybe?)
+  - If our container has a port we want to communicate to, we need to publish that port on the container. Add the **-p** flag on the docker run command and provide the following: **[host-port]:[container-port]**
+    - For example: **docker run -p 3000:80 [image]**
       - Assuming we exposed port 80 in our Dockerfile
       - If we visit localhost:3000 on our machine, we will be able to access the application from our docker container
     - This is useful if we want to sent HTTP requests to an application running in a container
     - By default, there's no connection between container and host OS
 
-- To stop a container from the terminal, first run **docker ps** command which will bring up a list of docker containers, grab either the CONTAINER ID or the NAMES value, then run **docker stop <container-value>**
+- To stop a container from the terminal, first run **docker ps** command which will bring up a list of docker containers, grab either the CONTAINER ID or the NAMES value, then run **docker stop [container-value]**
 
 - A container is another process on your machine that has been isolated from all other processes on the host machine. When running a container, it uses an isolated filesystem that is provided by a container image.
   - The image must contain everthing needed to run an application - all depenedencies, configuration, scripts, binaries, environment variables, etc.
@@ -28,13 +28,13 @@
       - **docker run node** -> will use the node image from Docker Hub to create a container based on the image
         - In this case, this will run the Node interactive shell
       - More than likely, the image won't be available locally on your machine when you first execute this command. So, the image will then be pulled from Docker Hub automatically, in which the image will then be downloaded locally onto your machine.
-    - Running **docker run <image>** creates a new container. You can check by running this command: **docker ps -a**
+    - Running **docker run [image]** creates a new container. You can check by running this command: **docker ps -a**
       - "ps" -> processes
       - "-a" -> flag that shows you all the processes (containers) Docker created for us
 
 - Executing docker run doesn't really do much because, for example, when docker run node, the interactive shell that is exposed by node isn't automatically exposed by the container to us.
 
-- **docker run -it <image>**
+- **docker run -it [image]**
   - We're telling docker we want to expose an interactive session from inside the container to our hosting machine
 
 - We can have multiple containers that are based on the same image running at the same time.
@@ -86,7 +86,7 @@
 
 - Since Docker containers are isolated from our local environment, if we're exposed a port inside of it, we won't be able to access it from our local machine without a specific instruction.
 
-- **docker build <path-of-Dockerfile>**
+- **docker build [path-of-Dockerfile]**
   - Allows you to create an image based on the instructions in the Dockerfile
   - Specify the path where Docker is able to find the Dockerfile
     - If you specify a dot, you're telling Docker that the Dockerfile is in the same directory that we're running the command in.
@@ -96,11 +96,11 @@
   - Doesn't really open up the port to our local machine. It's mainly for documentation purposes; good practice to add to Dockerfile to document which ports will be exposed by your container, but more needs to be done.
 
 - To actually expose a port, you will do so when executing the docker run command. Specifically, add the **-p** flag to the docker run command.
-  - **docker run -p <port-on-host-machine>:<port-in-container> <image>**
+  - **docker run -p [port-on-host-machine]:[port-in-container] [image]**
   - "-p" stands for publish
   - Tells Docker which port on your host machine that the port exposed inside the container should be accessible on.
   - Example: say we've exposed port 80 inside of our container
-    - **docker run -p 3000:80 <image>**
+    - **docker run -p 3000:80 [image]**
     - We can now access the container's port 80 from our local machine's 3000 port
 
 - For all docker commands where an ID can be used, you don't have to use the full ID; you can also use the first few characters, enough for it to be unique from other containers
@@ -132,7 +132,7 @@
 
 - If nothing changed about our image and we've stopped a container based on that image, there's no need to create a brand new container. We can restart the existing container.
 
-- **docker start <container>** command
+- **docker start [container]** command
   - starts a stopped container
   - Provide either the CONTAINER ID or NAME
   - Container runs in the background, unlike when you run docker run
@@ -149,15 +149,15 @@
 
 - To run a container in detached mode, add the **"-d"** flag to the docker run command
   - Example
-    - **docker run -d -p 8000:80 <image>**
+    - **docker run -d -p 8000:80 [image]**
 
-- You can attach yourself to a detached container again by running **docker container attach <container>**
-  - Or you can simply run **docker attach <container>**
+- You can attach yourself to a detached container again by running **docker container attach [container]**
+  - Or you can simply run **docker attach [container]**
 
-- If you're in detached mode but want to view the logs of a container, you can run **docker logs <container>**
+- If you're in detached mode but want to view the logs of a container, you can run **docker logs [container]**
   - You can add the **"-f"** flag to enter follow mode, which is basically an alternate way to attach to the container and listen to the output of the container.
   - Example
-    - **docker logs -f <container>**
+    - **docker logs -f [container]**
 
 - You can attach to a container that you started in detached mode without restarting the container itself; just run the attach command on the running container.
 
@@ -170,36 +170,36 @@
   - **"-t"** -> creates a terminal to input things in
   - Combining these two flags allows the container to listen for our input and we'll get a terminal exposed by the container.
   - Example
-    - **docker run -it <image>**
+    - **docker run -it [image]**
 
 - Run a stopped container in attached mode if you need to interact with it combined with the "-i" flag
   - Example
-    - **docker start -ai <image>**
+    - **docker start -ai [image]**
 
 - Docker is not just for web apps; it can be used to Dockerize simple utility applications which need input and provides some output.
 
 - Deleting Images & Containers
-  - **docker rm <container>** -> removes container
+  - **docker rm [container]** -> removes container
     - Make sure container is stopped before attempting to remove it
     - You can remove multiple containers at once; just separate them witha space between
       - Example
-        - **docker rm <container> <container> <container>**
+        - **docker rm [container] [container] [container]**
     - You can remove all stopped containers at once by running the **docker container prune** command
-  - **docker rmi <image>** -> removes image
+  - **docker rmi [image]** -> removes image
     - To list all images, run the docker images -a command
     - You can only remove images if they're not being used by any contaienr anymore, including stopped containers. Therefore, you must remove contaienrs that use the image BEFORE removing the image itself.
     - You can remove all images which aren't being used in contaienrs by running the **docker image prune** command
     - You can remove multiple images at once by separating them with a space
       - Example
-        - **docker rmi <image> <image> <image>**
+        - **docker rmi [image] [image] [image]**
 
 - To automatically remove a container after it stops, run the docker run command with the **"--rm"** flag
   - Example
-    - **docker run -p 8000:80 --rm <image>**
+    - **docker run -p 8000:80 --rm [image]**
     - Once you stop this container and run the docker ps -a command, the container won't appear
   - Useful for web apps where frequent changes are made and one container may not ever be used again
 
-- **docker image inspect <image>** command
+- **docker image inspect [image]** command
   - Gives detailed information about an image
   - Can find full image ID
   - Can find the date the image was created
@@ -209,7 +209,7 @@
   - Can also find the layers of the image
     - The layers from the base image are included as well
 
-- **docker cp <source-path> <dest-path>**
+- **docker cp [source-path] [dest-path]**
   - Allows you to copy files or folders into a running container or out a running container
   - The source-path is the folder or file we want to copy
     - When copying a folder, you can specify a file in that folder or, to copy everything, provide a dot.
@@ -218,13 +218,13 @@
   - The dest-path is the path you want to copy to
     - You will need the container name, then a colon, then the path inside the container you want to copy to.
   - Example
-    - **docker cp dummy/test.txt <container>:/test**
+    - **docker cp dummy/test.txt [container]:/test**
   - Useful for adding soemthing to the container without restarting the container and rebuilding the image, such as configuration files for a web server
   - Useful for, if your container generates log files, copying these log files from the container to the local machine
 
 - To give your container its own name, run the docker run command with the **"--name"** option followed by the name of your choice.
   - Example
-    - **docker run --name goalsapp <image>**
+    - **docker run --name goalsapp [image]**
   - Makes it easier to stop the container without having to run docker ps to find the CONTAINER ID or NAMES
 
 - You can also name your images by giving it a tag. Tags consists of two parts
@@ -260,7 +260,7 @@
     - **docker push thatsehannah/node-hello-world**
       - This will push the image tagged with thatsehannah/node-hello-world to Docker Hub
 
-- If you haven't created the image you want to push already, you can just run **docker build -t <tag-name-from-docker-hub>**
+- If you haven't created the image you want to push already, you can just run **docker build -t [tag-name-from-docker-hub]**
 
 - The tag name consists of the name you gave the repository (a.k.a image) prefixed with your Docker ID, separated by a slash.
   - Example: thatsehannah/node-hello-world
