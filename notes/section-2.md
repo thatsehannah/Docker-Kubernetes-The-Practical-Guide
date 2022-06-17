@@ -1,5 +1,5 @@
-- To create an image, create a file called `Dockerfile` (without an extension)
-    - Dockerfile describes to Docker how our container should be configured by adding instructions (more on this later)
+* To create an image, create a file called `Dockerfile` (without an extension)
+    * Dockerfile describes to Docker how our container should be configured by adding instructions (more on this later)
 
 - To build an image from the Dockerfile, in your terminal, navigate to the directory where the Dockerfile lives, and run `docker build .`
 
