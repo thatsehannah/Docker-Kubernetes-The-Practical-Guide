@@ -1,5 +1,5 @@
 - To create an image, create a file called `Dockerfile` (without an extension)
-        - Dockerfile describes to Docker how our container should be configured by adding instructions (more on this later)
+      - Dockerfile describes to Docker how our container should be configured by adding instructions (more on this later)
 
 - To build an image from the Dockerfile, in your terminal, navigate to the directory where the Dockerfile lives, and run `docker build .`
 
@@ -274,6 +274,6 @@
 - Before you push an image to Docker Hub, you must first login from the command line using the `docker login` command, in which you just put in your username & password
 
 - To download an image from Docker Hub onto your machine, simply run the `docker pull` command
-    - Example
-      - `docker pull thatsehannah/node-hello-world`
+  - Example
+    - `docker pull thatsehannah/node-hello-world`
 
