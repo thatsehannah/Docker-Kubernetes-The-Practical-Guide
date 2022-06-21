@@ -63,3 +63,9 @@ docker pull thatsehannah/node-hello-world
 
 --Pushing an image to Docker Hub--
 docker push thatsehannah/node-hello-world
+
+--Interactive mode while running a docker container--
+docker run -it python-app
+
+--Starting a stopped container in attached and iteractive mode--
+docker start -ai python-app
