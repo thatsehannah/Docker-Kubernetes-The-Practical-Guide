@@ -1,3 +1,6 @@
+* It's best practice that every container should do one main thing
+  * So if you have a node application that needs a database, it's recommended that you dockerize the node app and dockerize the database separately
+
 * Container to website (or API) communication
   * Might want to send HTTPS requests from your container to the world wide web
   * Works by default
@@ -5,7 +8,7 @@
 * Container to local host machine communication
   * Want to talk to some web service or local database that may live on our local machine
   * Service that is not in a container
-  * `host.docker.internal` special domain recognized by Docker and is translated to the IP address on your machine as seen inside the Docker
+  * `host.docker.internal` -> special domain recognized by Docker and is translated to the IP address on your machine as seen inside the Docker
     * Can be used anywhere where you need a address to your local machine 
 
 * Container to container communication
@@ -13,9 +16,6 @@
   * You can contact container A from container B using container A's IP Address
     * To get the IP Address, use `docker container inspect [container]` under **Networks**
     * Not ideal because whenever the IP address changes, we would have to rebuild the image(s)
-
-* It's best practice that every container should do one main thing
-  * So if you have a node application that needs a database, it's recommended that you dockerize the node app and dockerize the database separately
 
 * Creating Container Networks
   * You can put multiple containers inside the same network using the `--network` option on the docker run command
