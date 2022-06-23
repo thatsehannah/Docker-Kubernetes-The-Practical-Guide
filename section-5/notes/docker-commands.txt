@@ -1,0 +1,14 @@
+--Running the mongodb container--
+docker run --name mongodb -v data:/data/db --rm -d --network goals-net -e MONGO_INITDB_ROOT_USERNAME=elliot -e MONGO_INITDB_ROOT_PASSWORD=secret mongo 
+
+--Building the node container--
+docker build -t goals-node .
+
+--Running the node container--
+docker run --rm --name goals-backend -d -p 80:80 --network goals-net goals-node
+
+--Building the ReactJS container--
+docker build -t goals-react .
+
+--Running the ReactJS container--
+docker run --rm --name goals-frontend -p 3000:3000 goals-react

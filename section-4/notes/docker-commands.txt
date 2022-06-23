@@ -1,0 +1,11 @@
+--Creating a network--
+docker network create fake-network
+
+--Viewing all networks--
+docker network ls
+
+--Remove a network--
+docker volume rm fake-network
+
+--Remove all networks--
+docker volume prune

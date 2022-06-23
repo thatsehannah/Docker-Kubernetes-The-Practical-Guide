@@ -9,7 +9,8 @@
   * Want to talk to some web service or local database that may live on our local machine
   * Service that is not in a container
   * `host.docker.internal` -> special domain recognized by Docker and is translated to the IP address on your machine as seen inside the Docker
-    * Can be used anywhere where you need a address to your local machine 
+    * Can be used anywhere where you need a address to your local machine
+    * You would modify the connection string that would need this (e.g. a connection string that connects to a database running on your machine) 
 
 * Container to container communication
   * A container that's running some service where your other container wants to talk to it
@@ -24,7 +25,7 @@
   * `docker network create [name]` -> Creates a docker internal network
   * If multiple containers are apart of the same network, you can just use the other container's name as the address
     * Example: say we have 2 containers: `favorites` and `mongodb`.
-      * In your code, if you wanted the `favorites` container to talk to the `mongodb` container, you would need to include `mongodb://mongodb:27017/swfavorites` for the URL. In `mongodb:27017`, the `mongodb` part is the name of the container. In other words, if we named the container `my-database`, the url would look like `mongodb://my-database:27017/swfavorites`
+      * In your code, if you wanted the `favorites` container to talk to the `mongodb` container, you would need to include `mongodb://mongodb:27017/swfavorites` for the connection string. In `mongodb:27017`, the `mongodb` part is the name of the container. In other words, if we named the container `my-database`, the connection string would look like `mongodb://my-database:27017/swfavorites`
 
 * List all networks
   * `docker network ls`
