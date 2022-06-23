@@ -38,16 +38,16 @@
                   data:  
           * Different containers can use the same volume
           * Anonymous volumes and bind mounts don't need to be specified
+        * For bind mounts, instead of using the absolute path like you would in the `docker run` command, you can use the relative path relative to the docker-compose file
       * `environment` -> will contain nested entries
         * For every environment volume, add a dash (`-`) and define the environment variable key-value pair
         * You can specify an environment file in the docker compose configuration
           * Use the `env_file` key and list the env file using the relative path from the docker-compose.yaml file
           * The environment variables defined in the file(s) will be read in in the container
-    * You need a dash when you have a list of single values (`./env/mongo.env`) and you don't need a dash when you have a list of key-value pairs (`MONGO_INITDB_ROOT_USERNAME: elliot`)
+          
+* You need a dash when you have a list of single values (`./env/mongo.env`) and you don't need a dash when you have a list of key-value pairs (`MONGO_INITDB_ROOT_USERNAME: elliot`)
 
 * No need to specify whether to remove the container on stoppage because by default, when you bring your services down, it automatically removes the containers
-
-* We can specify the detached mode when we start our services
 
 * No need to specify a network when using docker-compose, Docker will automatically create a new network for all of the services defined in the yaml file out of the box
 
@@ -70,4 +70,40 @@
     * Add the -v flag to delete volumes
       * Example
         * `docker compose down -v`
+
+* Since docker compose replaces the **build** step, we can give it all the information it needs to build an image with the `build` key as a dependency to a service. 
+  * Build option takes the relative path to the Dockerfile
+    * Example
+      * backend-service:  
+            build: ./backend  
+
+* You can also provide the build key with nested dependencies if, for example, your Dockerfile is named "Dockerfile-dev". You will have to provide 2 additional child dependencies to the build key.
+  * `context` -> the path to the folder that holds your dockerfile
+  * `dockerfile` -> specifies the file name
+  * By default, if your Dockerfile is named is "Dockerfile", you won't have to use this alternative way
+  * Example
+    * backend-service:  
+          build:
+              context: ./backend
+              dockerfile: Dockerfile-dev
+  * There's another depenceny you can use: `args` for if you need to specify arguments defined in your Dockerfile
+
+* For ports, just provide the `ports` dependency under the service and provide a single value list of the ports you need
+  * Remember, single value ports use dashes
+
+* `depends_on` key
+  * If you want container A to be started before starting container B, you provide this dependency to let docker compose know that.
+  * Takes a single value list for that specific service that lists the services that that service "depends on"
+  * Provide the name of the service you chose
+  * Example
+    * mongodb:  
+        image: [...]  
+      backend:  
+        build: ./backend  
+        depends_on:  
+            - mongodb  
+
+* The service names that are defined in your docker compose file can be used throughout your code when you need to talk to containers.
+  * Example: if one of the services you defined in your docker compose file was named mongodb-service
+    * `mongodb://mongodb-service:27017/course-goals?authSource=admin`
 
