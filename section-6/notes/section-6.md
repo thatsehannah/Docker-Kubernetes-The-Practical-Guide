@@ -88,8 +88,9 @@
               dockerfile: Dockerfile-dev
   * There's another depenceny you can use: `args` for if you need to specify arguments defined in your Dockerfile
 
-* For ports, just provide the `ports` dependency under the service and provide a single value list of the ports you need
+* For ports, just provide the `ports` key under the service and provide a single value list of the ports you need
   * Remember, single value ports use dashes
+  * The value is a string, e.g. '3000:3000'
 
 * `depends_on` key
   * If you want container A to be started before starting container B, you provide this dependency to let docker compose know that.
@@ -103,7 +104,25 @@
         depends_on:  
             - mongodb  
 
-* The service names that are defined in your docker compose file can be used throughout your code when you need to talk to containers.
-  * Example: if one of the services you defined in your docker compose file was named mongodb-service
+* The service names that are defined in your docker compose file can be used throughout your code when you need to talk to those containers.
+  * Example: if one of the services you defined in your docker compose file was named `mongodb-service`
     * `mongodb://mongodb-service:27017/course-goals?authSource=admin`
+
+* `stdin_open` and `tty` keys
+  * Same as the `-it` flag on the docker run command; when you need an interactive mode
+  * Set both of these to `true`
+  * `stdin_open` opens standard input
+  * `tty` attaches the terminal
+
+* `--build` flag on `docker compose up`
+  * If you want to force docker to rebuild the image(s)
+  * By default, the image defined by the `build` key in the docker compose file will only be built once and cache it
+  * Useful if you make changes to the code
+  * Example
+    * `docker compose up --build`
+  * If you just want to build images and not start a container thereafter, just run `docker compose build`
+
+* `container_name` key
+  * Used to assign custom names for the actual container name
+  * The service name is not the container name
 
