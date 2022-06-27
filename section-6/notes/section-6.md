@@ -2,6 +2,7 @@
   * Tool that allows to replace multiple `docker build` commands and multiple `docker run` commands with one configuration file and a set of orchestration commands to build images, start and stop containers
   * With the one configuration file, you can share with anyone which can be executed with one command
   * Works better with multiple containers but can also work with single containers
+  * Mainly solves the repitition of writing of cumbersome docker commands
 
 * Docker Compose does not replace Dockerfiles for custom images
 
@@ -116,7 +117,7 @@
 
 * `--build` flag on `docker compose up`
   * If you want to force docker to rebuild the image(s)
-  * By default, the image defined by the `build` key in the docker compose file will only be built once and cache it
+  * By default, the image defined by the `build` key in the docker compose file will only be built once and cache it unless it is removed
   * Useful if you make changes to the code
   * Example
     * `docker compose up --build`
