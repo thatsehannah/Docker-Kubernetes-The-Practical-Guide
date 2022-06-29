@@ -18,6 +18,7 @@
         entrypoint: ["php", "/var/www/html/artisan"]  
     - You would add the additional setting the same way you would add it in the Dockerfile
     - Here, we're adding an entrypoint setting to **service-b**, which gives us the flexibility to a) not create a new Dockerfile, and b) to only include this setting in this particular service
+  - Not every instruction in the Dockerfile can be replicated in a docker-compose file. For example, the `COPY` and `RUN` instructions aren't available to use in a docker-compose file 
 
 - In the Laravel application code, specifically the .env file, you will need to change the following entries if using multiple containers
   - DB_HOST  
