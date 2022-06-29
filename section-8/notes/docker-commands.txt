@@ -10,3 +10,6 @@ docker-compose up -d server
 
 --Run a service and rebuild the images (if necessary)--
 docker-compose up -d --build server
+
+--Run artisan migration--
+docker-compose run --rm artisan migrate

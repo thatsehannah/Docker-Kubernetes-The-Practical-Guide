@@ -27,5 +27,16 @@ services:
       dockerfile: Dockerfile.composer
     volumes:
       - ./src:/var/www/html
-  # npm:
-  # artisan:
+  artisan:
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile.php
+    volumes:
+      - ./src:/var/www/html
+    entrypoint: ["php", "/var/www/html/artisan"]
+  npm:
+    image: node:14
+    working_dir: /var/www/html
+    entrypoint: ["npm"]
+    volumes:
+      - ./src:/var/www/html
