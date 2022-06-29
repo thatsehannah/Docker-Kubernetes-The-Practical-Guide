@@ -36,3 +36,4 @@
     - `docker-compose run npm-service init`
     - This will run `npm init` in the container
   - You can add the `--rm` flag to this command to remove the container once it's done executing the command you give it
+  - You can simply run this command for a single service, i.e. a utility container, so that you 

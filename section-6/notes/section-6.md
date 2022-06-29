@@ -118,10 +118,11 @@
 * `--build` flag on `docker compose up`
   * If you want to force docker to rebuild the image(s)
   * By default, the image defined by the `build` key in the docker compose file will only be built once and cache it unless it is removed
-  * Useful if you make changes to the code
+  * Useful if you make changes to the Dockerfiles or any other code
   * Example
     * `docker compose up --build`
   * If you just want to build images and not start a container thereafter, just run `docker compose build`
+  * If you provide this flag and nothing has changed, the image will not be rebuilt and Docker will use the cached layer
 
 * `container_name` key
   * Used to assign custom names for the actual container name

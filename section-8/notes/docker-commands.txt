@@ -1,0 +1,12 @@
+--Create a Laravel project--
+docker-compose run --rm composer create-project laravel/laravel .
+
+--Run specific services--
+docker-compose up -d server php mysql
+
+--Run a service that has dependencies--
+docker-compose up -d server
+  * php and mysql would be listed in the "depends_on" key in the docker-compose file
+
+--Run a service and rebuild the images (if necessary)--
+docker-compose up -d --build server
